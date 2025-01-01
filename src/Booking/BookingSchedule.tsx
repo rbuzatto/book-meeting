@@ -7,9 +7,13 @@ type DetailsData = {
   email: string
 }
 
-export const BookingSchedule = () => {
+type BookingScheduleProps = {
+  slot: string
+}
+
+export const BookingSchedule = ({ slot }: BookingScheduleProps) => {
   const { register, handleSubmit } = useForm<DetailsData>()
-  const onSubmit: SubmitHandler<DetailsData> = data => console.log(data)
+  const onSubmit: SubmitHandler<DetailsData> = data => console.log({ ...data, slot })
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

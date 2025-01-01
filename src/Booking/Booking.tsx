@@ -35,7 +35,7 @@ export const Booking = () => {
           title={'30 minute Interview'}
         />
       </div>
-      {isFirstStep ? <BookingTime confirmSlot={setSlot} /> : <BookingSchedule />}
+      {isFirstStep ? <BookingTime confirmSlot={setSlot} /> : <BookingSchedule slot={slot} />}
     </Card>
   )
 }
