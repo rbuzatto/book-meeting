@@ -1,8 +1,8 @@
 import { TimePicker } from '@/components/TimePicker'
 import { useGetSlotTimesForMonth } from '@/useGetSlotTimesForMonth'
-import clsx from 'clsx'
+import { format, isBefore, parseISO } from 'date-fns'
 import { useState } from 'react'
-import { format, parseISO, isBefore } from 'date-fns'
+import { BookingTimePicker } from './BookingTimePicker'
 
 function groupByDay(dates: string[]) {
   return dates.reduce(
@@ -52,61 +52,19 @@ export const BookingTime = ({ confirmSlot }: BookingTimeProps) => {
         {hasPickedDay ? (
           <div className="flex flex-col items-center justify-center w-full">
             <ul className="flex flex-col gap-y-2 w-40">
-              {selectedSlotsForDay.map((slot, i) =>
-                selectedtSlot !== slot ? (
-                  <PickTime
-                    key={i}
-                    time={format(slot, 'HH:mm')}
-                    onClick={() => setSelectedSlot(slot)}
-                  />
-                ) : (
-                  <PickedTime
-                    key={i}
-                    time={format(slot, 'HH:mm')}
-                    onClick={() => confirmSlot(selectedtSlot)}
-                  />
-                ),
-              )}
+              {selectedSlotsForDay.map((slot, i) => (
+                <BookingTimePicker
+                  key={i}
+                  time={format(slot, 'HH:mm')}
+                  pickSlot={() => setSelectedSlot(slot)}
+                  comfirmSlot={() => confirmSlot(selectedtSlot)}
+                  isPicked={selectedtSlot === slot}
+                />
+              ))}
             </ul>
           </div>
         ) : null}
       </div>
-    </div>
-  )
-}
-
-const baseClass =
-  'flex items-center justify-center w-full rounded-md p-2 text-md font-semibold border'
-
-type PickTimeProps = {
-  time: string
-  onClick: () => void
-}
-const PickTime = ({ time, onClick }: PickTimeProps) => {
-  return (
-    <button
-      onClick={onClick}
-      className={clsx(baseClass, ' text-blue-500 border-blue-200 hover:border-blue-500')}
-    >
-      {time}
-    </button>
-  )
-}
-
-type PickedTimeProps = {
-  time: string
-  onClick: () => void
-}
-const PickedTime = ({ time, onClick }: PickedTimeProps) => {
-  return (
-    <div className="flex justify-center w-full gap-2">
-      <div className={clsx(baseClass, 'text-white bg-gray-500')}>{time}</div>
-      <button
-        onClick={onClick}
-        className={clsx(baseClass, 'text-white bg-blue-500 hover:bg-blue-700')}
-      >
-        Next
-      </button>
     </div>
   )
 }
