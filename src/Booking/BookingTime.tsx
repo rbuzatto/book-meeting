@@ -4,7 +4,7 @@ import { format, isBefore, parseISO } from 'date-fns'
 import { useState } from 'react'
 import { BookingTimePicker } from './BookingTimePicker'
 
-function groupByDay(dates: string[]) {
+const groupByDay = (dates: string[]) => {
   return dates.reduce(
     (acc, date) => {
       const dayKey = format(new Date(date), 'yyyy-MM-dd')
