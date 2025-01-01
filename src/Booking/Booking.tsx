@@ -1,5 +1,5 @@
 import { Card } from '@/components/Card'
-import { useHostDetails } from '@/useHostDetails'
+import { useHostDetails } from './useHostDetails'
 import { parseISO } from 'date-fns'
 import { useState } from 'react'
 import { BookingDetails } from './BookingDetails'

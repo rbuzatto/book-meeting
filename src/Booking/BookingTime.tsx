@@ -1,5 +1,5 @@
 import { TimePicker } from '@/components/TimePicker'
-import { useGetSlotTimesForMonth } from '@/useGetSlotTimesForMonth'
+import { useGetSlotTimesForMonth } from './useGetSlotTimesForMonth'
 import { format, isBefore, parseISO } from 'date-fns'
 import { useState } from 'react'
 import { BookingTimePicker } from './BookingTimePicker'

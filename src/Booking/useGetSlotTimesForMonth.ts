@@ -1,7 +1,7 @@
 import { startOfMonth, endOfMonth, format } from 'date-fns'
 import { useQuery } from '@tanstack/react-query'
-import { getData } from './api/api'
-import { BOOKING } from './api/endpoints'
+import { getData } from '../api/api'
+import { BOOKING } from '../api/endpoints'
 
 type ResponseData = {
   data: {
