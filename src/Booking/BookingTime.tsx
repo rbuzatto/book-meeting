@@ -27,7 +27,6 @@ export const BookingTime = ({ confirmSlot }: BookingTimeProps) => {
   const [selectedDay, setSelectedDay] = useState<string>('')
   const [selectedtSlot, setSelectedSlot] = useState<string>('')
 
-  if (isLoading) return null
   const slots = data?.data?.available_times ?? []
   const slotsByDay = groupByDay(slots)
   const enabledDays = new Set(Object.keys(slotsByDay))
@@ -42,6 +41,7 @@ export const BookingTime = ({ confirmSlot }: BookingTimeProps) => {
       <h2 className="font-bold text-xl">Select a Date & Time</h2>
       <div className="flex items-center justify-center w-full">
         <TimePicker
+          isLoading={isLoading}
           onMonthChange={setPickedMonthDate}
           month={pickedMonthDate}
           disabled={isDisabledDay}
