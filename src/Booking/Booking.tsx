@@ -19,7 +19,7 @@ export const Booking = () => {
       {isFirstStep ? null : (
         <button
           onClick={resetSlot}
-          className="absolute top-4 left-8 text-blue-500 rounded-full p-2 border-2 border-gray-200"
+          className="absolute top-4 left-8 text-blue-500 rounded-full p-2 border-2 border-gray-200 hover:bg-blue-100"
         >
           <ArrowBack width={16} strokeWidth={3} />
         </button>
