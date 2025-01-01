@@ -1,21 +1,24 @@
 import { Card } from '@/components/Card'
-import { BookingDetails } from './BookingDetails'
 import { useHostDetails } from '@/useHostDetails'
-import { BookingTime } from './BookingTime'
+import { parseISO } from 'date-fns'
+import { useState } from 'react'
+import { BookingDetails } from './BookingDetails'
 import { BookingSchedule } from './BookingSchedule'
+import { BookingTime } from './BookingTime'
 import ArrowBack from './imgs/arrowBack.svg?react'
 
 export const Booking = () => {
   const { data } = useHostDetails()
-  const isFirstStep = false
+  const [slot, setSlot] = useState<string | null>(null)
+  const resetSlot = () => setSlot(null)
+  const isFirstStep = !slot
   const host = { name: data.name, img: data.img }
-  const reset = () => {}
 
   return (
     <Card className="flex">
       {isFirstStep ? null : (
         <button
-          onClick={reset}
+          onClick={resetSlot}
           className="absolute top-4 left-8 text-blue-500 rounded-full p-2 border-2 border-gray-200"
         >
           <ArrowBack width={16} strokeWidth={3} />
@@ -25,9 +28,14 @@ export const Booking = () => {
         <div className="flex justify-center border-b-2 border-slate-100 p-4">
           <img src={data.logo} alt="logo" className="w-16 h-16 rounded-full" />
         </div>
-        <BookingDetails duration={30} date={new Date()} host={host} title={'30 minute Interview'} />
+        <BookingDetails
+          duration={30}
+          date={slot ? parseISO(slot) : null}
+          host={host}
+          title={'30 minute Interview'}
+        />
       </div>
-      <BookingSchedule />
+      {isFirstStep ? <BookingTime confirmSlot={setSlot} /> : <BookingSchedule />}
     </Card>
   )
 }

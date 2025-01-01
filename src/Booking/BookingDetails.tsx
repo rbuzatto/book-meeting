@@ -9,14 +9,18 @@ type BookingDetailsProps = {
   host: Host
   duration: number
   title: string
-  date: Date
+  date: Date | null
 }
 
-export const BookingDetails = ({ title, duration, host, date }: BookingDetailsProps) => {
+const getDateDetails = (date: Date, duration: number) => {
   const formattedDate = format(date, 'EEEE, MMMM d, yyyy')
   const startTime = format(date, 'h:mma')
   const endTime = format(addMinutes(date, duration), 'h:mma')
-  const dateDetails = `${startTime} - ${endTime}, ${formattedDate}`
+  return `${startTime} - ${endTime}, ${formattedDate}`
+}
+
+export const BookingDetails = ({ title, duration, host, date }: BookingDetailsProps) => {
+  const dateDetails = date ? getDateDetails(date, duration) : null
 
   return (
     <div className="p-4 flex flex-col gap-4">
@@ -27,7 +31,7 @@ export const BookingDetails = ({ title, duration, host, date }: BookingDetailsPr
       <div className="flex flex-col justify-center gap-1">
         <BookingDetail icon="🕒" content={title} />
         <BookingDetail icon="📹" content={'Web conferencing details provided upon confirmation.'} />
-        <BookingDetail icon="📅" content={dateDetails} />
+        {dateDetails ? <BookingDetail icon="📅" content={dateDetails} /> : null}
       </div>
     </div>
   )

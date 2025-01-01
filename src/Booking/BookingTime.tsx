@@ -18,15 +18,15 @@ function groupByDay(dates: string[]) {
   )
 }
 
-export const BookingTime = () => {
+type BookingTimeProps = {
+  confirmSlot: (slot: string) => void
+}
+export const BookingTime = ({ confirmSlot }: BookingTimeProps) => {
   const [pickedMonthDate, setPickedMonthDate] = useState<Date>(new Date())
-  const { data, isLoading, error, isError } = useGetSlotTimesForMonth(pickedMonthDate)
+  const { data, isLoading } = useGetSlotTimesForMonth(pickedMonthDate)
   const [selectedDay, setSelectedDay] = useState<string>('')
-  const [selectedtSlot, setSelectedSlot] = useState<string | null>(null)
+  const [selectedtSlot, setSelectedSlot] = useState<string>('')
 
-  console.log('isError:', isError, error)
-
-  console.log(data)
   if (isLoading) return null
   const slots = data?.data?.available_times ?? []
   const slotsByDay = groupByDay(slots)
@@ -35,9 +35,6 @@ export const BookingTime = () => {
     return isBefore(date, new Date()) || !enabledDays.has(format(date, 'yyyy-MM-dd'))
   }
   const hasPickedDay = true
-  const confirmSlot = () => {
-    console.log('Time confirmed:')
-  }
 
   const selectedSlotsForDay = selectedDay in slotsByDay ? slotsByDay[selectedDay] : []
   return (
@@ -63,7 +60,11 @@ export const BookingTime = () => {
                     onClick={() => setSelectedSlot(slot)}
                   />
                 ) : (
-                  <PickedTime key={i} time={format(slot, 'HH:mm')} onClick={confirmSlot} />
+                  <PickedTime
+                    key={i}
+                    time={format(slot, 'HH:mm')}
+                    onClick={() => confirmSlot(selectedtSlot)}
+                  />
                 ),
               )}
             </ul>
