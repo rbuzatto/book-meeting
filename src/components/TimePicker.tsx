@@ -31,14 +31,7 @@ export const TimePicker = ({ isLoading, ...props }: TimePickerProps) => {
         {...props}
       />
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        <ThreeDots
-          visible={isLoading}
-          height="80"
-          width="80"
-          color="#a7adad"
-          radius="9"
-          wrapperClass=""
-        />
+        <ThreeDots visible={isLoading} height="80" width="80" color="#a7adad" radius="9" />
       </div>
     </div>
   )
