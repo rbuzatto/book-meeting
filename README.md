@@ -1,6 +1,6 @@
 # Book Meeting
 
-This project replicates Calendlar app, which allows users to book meetings with a given guest.
+This project replicates Calendlar app, which allows users to book meetings with a given host.
 
 ## Bootstrap project
 
