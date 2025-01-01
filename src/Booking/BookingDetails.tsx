@@ -14,8 +14,8 @@ type BookingDetailsProps = {
 
 const getDateDetails = (date: Date, duration: number) => {
   const formattedDate = format(date, 'EEEE, MMMM d, yyyy')
-  const startTime = format(date, 'h:mma')
-  const endTime = format(addMinutes(date, duration), 'h:mma')
+  const startTime = format(date, 'h:mmaaa')
+  const endTime = format(addMinutes(date, duration), 'h:mmaaa')
   return `${startTime} - ${endTime}, ${formattedDate}`
 }
 
