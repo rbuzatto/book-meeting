@@ -33,7 +33,7 @@ export const BookingTime = ({ confirmSlot }: BookingTimeProps) => {
   const isDisabledDay = (date: Date) => {
     return isBefore(date, new Date()) || !enabledDays.has(format(date, 'yyyy-MM-dd'))
   }
-  const hasPickedDay = true
+  const hasPickedDay = !!selectedDay
 
   const selectedSlotsForDay = selectedDay in slotsByDay ? slotsByDay[selectedDay] : []
   return (
