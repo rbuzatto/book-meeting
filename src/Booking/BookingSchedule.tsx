@@ -27,7 +27,7 @@ export const BookingSchedule = () => {
         </div>
         <button
           type="button"
-          className="text-blue-500 text-sm rounded-full w-fit border border-blue-500 hover:border-blue-700 px-2 py-1"
+          className="text-blue-500 text-sm rounded-full w-fit border border-blue-500 hover:border-blue-700 px-2 py-1 hover:bg-blue-100"
         >
           Add Guests
         </button>
