@@ -1,5 +1,5 @@
 import { Card } from '@/components/Card'
-import { useHostDetails } from './useHostDetails'
+import { useGetHostDetails } from './useGetHostDetails'
 import { parseISO } from 'date-fns'
 import { useState } from 'react'
 import { BookingDetails } from './BookingDetails'
@@ -8,11 +8,10 @@ import { BookingTime } from './BookingTime'
 import ArrowBack from './imgs/arrowBack.svg?react'
 
 export const Booking = () => {
-  const { data } = useHostDetails()
+  const { data } = useGetHostDetails()
   const [slot, setSlot] = useState<string | null>(null)
   const resetSlot = () => setSlot(null)
   const isFirstStep = !slot
-  const host = { name: data.name, img: data.img }
 
   return (
     <Card className="flex">
@@ -26,14 +25,9 @@ export const Booking = () => {
       )}
       <div className="flex flex-col border-r-2 border-slate-100 w-72">
         <div className="flex justify-center border-b-2 border-slate-100 p-4">
-          <img src={data.logo} alt="logo" className="w-16 h-16 rounded-full" />
+          <img src={data?.logo} alt="logo" className="w-16 h-16 rounded-full" />
         </div>
-        <BookingDetails
-          duration={30}
-          date={slot ? parseISO(slot) : null}
-          host={host}
-          title={'30 minute Interview'}
-        />
+        <BookingDetails date={slot ? parseISO(slot) : null} />
       </div>
       {isFirstStep ? <BookingTime confirmSlot={setSlot} /> : <BookingSchedule slot={slot} />}
     </Card>

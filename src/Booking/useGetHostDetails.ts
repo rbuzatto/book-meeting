@@ -10,7 +10,7 @@ const mockedHostDetails = {
 
 type HostDetails = typeof mockedHostDetails
 
-export const useHostDetails = () => {
+export const useGetHostDetails = () => {
   return useQuery<HostDetails>({
     queryKey: ['host-details'],
     queryFn: async () => {

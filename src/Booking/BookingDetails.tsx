@@ -1,31 +1,38 @@
 import { format, addMinutes } from 'date-fns'
-
-type Host = {
-  name: string
-  img: string
-}
+import { useGetHostDetails } from './useGetHostDetails'
+import { ThreeDots } from 'react-loader-spinner'
 
 type BookingDetailsProps = {
-  host: Host
-  duration: number
-  title: string
   date: Date | null
 }
 
-const getDateDetails = (date: Date, duration: number) => {
+const getBookingDetails = (date: Date, duration: number) => {
   const formattedDate = format(date, 'EEEE, MMMM d, yyyy')
-  const startTime = format(date, 'h:mmaaa')
+  const startTime = format(date, 'h:mmaaaa')
   const endTime = format(addMinutes(date, duration), 'h:mmaaa')
   return `${startTime} - ${endTime}, ${formattedDate}`
 }
 
-export const BookingDetails = ({ title, duration, host, date }: BookingDetailsProps) => {
-  const dateDetails = date ? getDateDetails(date, duration) : null
+export const BookingDetails = ({ date }: BookingDetailsProps) => {
+  const { data, isLoading } = useGetHostDetails()
+
+  if (isLoading) {
+    return (
+      <div className="relative flex justify-center items-center w-full h-96">
+        <ThreeDots visible={isLoading} height="64" width="64" color="#a7adad" radius="9" />
+      </div>
+    )
+  }
+  if (!data) return null
+
+  const { name, img, title, duration } = data
+
+  const dateDetails = date ? getBookingDetails(date, duration) : null
 
   return (
     <div className="p-4 flex flex-col gap-4">
       <div>
-        <BookingHost name={host.name} img={host.img} />
+        <BookingHost name={name} img={img} />
         <h2 className="text-xl font-bold">{title}</h2>
       </div>
       <div className="flex flex-col justify-center gap-1">
