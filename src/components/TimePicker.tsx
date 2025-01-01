@@ -1,6 +1,6 @@
 import { format } from 'date-fns'
 import { DayPicker, DayPickerProps, getDefaultClassNames } from 'react-day-picker'
-import { ThreeDots } from 'react-loader-spinner'
+import { Spinner } from '@/components/Spinner'
 
 type TimePickerProps = {
   isLoading?: boolean
@@ -30,9 +30,11 @@ export const TimePicker = ({ isLoading, ...props }: TimePickerProps) => {
         }}
         {...props}
       />
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        <ThreeDots visible={isLoading} height="80" width="80" color="#a7adad" radius="9" />
-      </div>
+      {isLoading ? (
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <Spinner visible={isLoading} size="80" />
+        </div>
+      ) : null}
     </div>
   )
 }

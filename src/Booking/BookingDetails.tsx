@@ -1,6 +1,6 @@
 import { format, addMinutes } from 'date-fns'
 import { useGetHostDetails } from './useGetHostDetails'
-import { ThreeDots } from 'react-loader-spinner'
+import { Spinner } from '@/components/Spinner'
 
 type BookingDetailsProps = {
   date: Date | null
@@ -19,7 +19,7 @@ export const BookingDetails = ({ date }: BookingDetailsProps) => {
   if (isLoading) {
     return (
       <div className="relative flex justify-center items-center w-full h-96">
-        <ThreeDots visible={isLoading} height="64" width="64" color="#a7adad" radius="9" />
+        <Spinner visible={isLoading} size="64" />
       </div>
     )
   }
